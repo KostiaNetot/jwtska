@@ -82,5 +82,14 @@ export const authReducer = createSlice({
   },
 });
 
-export const { loadProfileStart, loadProfileSuccess, loadProfileFailure, loginStart, loginSuccess, loginFailure, logoutSuccess } = authReducer.actions;
+export const { 
+  loadProfileStart, 
+  loadProfileSuccess, 
+  loadProfileFailure, 
+  loginStart, 
+  loginSuccess, 
+  loginFailure, 
+  logoutSuccess, 
+} = authReducer.actions;
+
 export default authReducer.reducer; 

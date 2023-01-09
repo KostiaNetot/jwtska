@@ -2,7 +2,7 @@ const express = require('express');
 const crypto = require('crypto');
 const cookie = require('cookie');
 const { passwordSecret, fakeUser } = require('./fake-data');
-const { getTokens, refreshTokenAge } = require('./../utils/get-tokens');
+const { getTokens, refreshTokenAge, verifyAuthMiddleware } = require('../utils');
 
 const authRouter = express.Router();
 
@@ -31,6 +31,22 @@ authRouter.post('/login', (req, res) => {
   );
 
   res.send({ accessToken });    
+});
+
+authRouter.get('/profile', verifyAuthMiddleware, (req, res) => {
+  res.send('admin'); // just string
+});
+
+authRouter.get('/logout', (req, res) => {
+  res.setHeader(
+    'Set-Cookie',
+    cookie.serialize('refreshToken', '', {
+      httpOnly: true,
+      maxAge: 0,
+    })
+  );
+  
+  res.sendStatus(200);
 });
 
 module.exports = authRouter;
